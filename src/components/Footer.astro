@@ -1,0 +1,38 @@
+---
+import { getT } from '../i18n';
+const { global, contact } = getT(Astro.currentLocale);
+const f = global.footer;
+---
+
+<footer class="bg-ink pb-12 pt-[72px] text-[15px] text-ivory">
+  <div class="container-site">
+    <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
+      <div>
+        <p class="font-display text-[26px] font-heading">Espai Estudi</p>
+        <p class="mt-4 max-w-[34em] text-clay">{f.positioning}</p>
+      </div>
+      <div>
+        <p class="label !text-clay">{f.contactTitle}</p>
+        <ul class="mt-4 space-y-1.5">
+          <li><a href={contact.phoneHref} class="hover:text-clay">{contact.phone}</a></li>
+          <li><a href={`mailto:${contact.email}`} class="hover:text-clay">{contact.email}</a></li>
+          <li class="text-clay">{contact.hours}</li>
+        </ul>
+      </div>
+      <div>
+        <p class="label !text-clay">{f.exploreTitle}</p>
+        <ul class="mt-4 space-y-1.5">
+          {f.explore.map((l) => <li><a href={l.href} class="hover:text-clay">{l.label}</a></li>)}
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-14 flex flex-col gap-4 border-t border-clay/25 pt-6 text-[13px] text-clay md:flex-row md:items-center md:justify-between">
+      <p class="label !text-clay">Català · Castellano · English</p>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2">
+        {f.legal.map((l) => <li><a href={l.href} class="hover:text-ivory">{l.label}</a></li>)}
+        <li>{f.copyright}</li>
+      </ul>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,27 @@
+---
+import { getT } from '../../i18n';
+const { home, global } = getT(Astro.currentLocale);
+import Photo from '../Photo.astro';
+import { media } from '../../data/media';
+const h = home.hero;
+---
+
+<section class="container-site grid items-end gap-10 pb-[72px] pt-14 md:grid-cols-2 md:gap-[72px] md:pb-[112px] md:pt-[88px]" aria-labelledby="hero-title">
+  <div>
+    <p class="label !text-bronze">{h.eyebrow}</p>
+    <h1 id="hero-title" class="mb-7 mt-5">{h.titleStart} <em>{h.titleEmphasis}</em>.</h1>
+    <p class="mb-10 max-w-[32em] text-stone">{h.text}</p>
+    <div class="flex flex-wrap items-center gap-8">
+      <a href={global.cta.href} class="btn btn-primary">{h.primary}</a>
+      <a href={h.secondaryHref} class="btn-link">{h.secondary}</a>
+    </div>
+  </div>
+  <Photo
+    image={media.hero}
+    alt={h.imageAlt}
+    loading="eager"
+    position="50% 60%"
+    sizes="(min-width: 768px) 560px, 100vw"
+    class="aspect-[4/5] rounded-t-full"
+  />
+</section>

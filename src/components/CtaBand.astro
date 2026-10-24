@@ -1,0 +1,19 @@
+---
+import { getT } from '../i18n';
+const { global, contact } = getT(Astro.currentLocale);
+const c = global.ctaBand;
+---
+
+<section class="section border-b border-clay/25 bg-ink text-ivory" aria-labelledby="cta-title">
+  <div class="container-site grid items-end gap-10 md:grid-cols-[1.5fr_1fr]">
+    <div class="reveal">
+      <p class="label !text-clay">{c.eyebrow}</p>
+      <h2 id="cta-title" class="mt-5 max-w-[16em]">{c.title}</h2>
+      <p class="mt-6 max-w-[34em] text-clay">{c.text}</p>
+    </div>
+    <div class="reveal flex flex-col items-start gap-5 md:items-end">
+      <a href={global.cta.href} class="btn btn-primary">{c.button}</a>
+      <a href={contact.whatsappHref} target="_blank" rel="noopener" class="border-b border-clay/50 pb-1 text-[15px] text-clay hover:text-ivory">{c.secondary}</a>
+    </div>
+  </div>
+</section>

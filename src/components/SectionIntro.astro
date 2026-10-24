@@ -1,0 +1,18 @@
+---
+// Editorial intro: label on the left, heading (and optional text) on the right.
+interface Props {
+  eyebrow: string;
+  title: string;
+  id?: string;
+}
+
+const { eyebrow, title, id } = Astro.props;
+---
+
+<div class="reveal grid gap-5 md:grid-cols-[1fr_1.4fr] md:gap-[72px]">
+  <p class="label pt-2">{eyebrow}</p>
+  <div>
+    <h2 id={id}>{title}</h2>
+    <slot />
+  </div>
+</div>

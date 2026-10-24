@@ -1,0 +1,14 @@
+---
+import { getT } from '../../i18n';
+const { home } = getT(Astro.currentLocale);
+import SectionIntro from '../SectionIntro.astro';
+const p = home.positioning;
+---
+
+<section class="section">
+  <div class="container-site">
+    <SectionIntro eyebrow={p.eyebrow} title={p.title}>
+      <p class="mt-6 max-w-[38em] text-stone">{p.text}</p>
+    </SectionIntro>
+  </div>
+</section>

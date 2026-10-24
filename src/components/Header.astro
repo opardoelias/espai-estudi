@@ -1,0 +1,88 @@
+---
+import { getT, locales, homeHrefs } from '../i18n';
+import WhatsAppIcon from './WhatsAppIcon.astro';
+const { lang, global, contact } = getT(Astro.currentLocale);
+const languages = locales.map((code) => ({ code, label: code.toUpperCase(), href: homeHrefs[code], current: code === lang }));
+---
+
+<header class="sticky top-0 z-40 border-b border-travertine bg-ivory/90 backdrop-blur-md">
+  <div class="container-site flex h-[76px] items-center justify-between gap-6">
+    <a href={homeHrefs[lang]} class="whitespace-nowrap font-display text-[22px] font-medium tracking-[-0.01em]" aria-label={global.meta.homeAria}>Espai Estudi</a>
+
+    <nav class="hidden xl:block" aria-label={global.meta.navAria}>
+      <ul class="flex gap-8">
+        {global.nav.map((item) => (
+          <li><a href={item.href} class="label whitespace-nowrap !text-ink transition-colors hover:!text-terracotta">{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-4 xl:gap-6">
+      <ul class="label hidden items-center gap-1 sm:flex" aria-label={global.meta.languageAria}>
+        {languages.map((l, i) => (
+          <li class="flex items-center gap-1">
+            {i > 0 && <span aria-hidden="true">·</span>}
+            <a href={l.href} class:list={[l.current ? '!text-terracotta' : 'hover:text-ink']} aria-current={l.current ? 'true' : undefined} hreflang={l.code} lang={l.code}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+      <a
+        href={contact.whatsappHref}
+        target="_blank"
+        rel="noopener"
+        class="inline-flex h-11 items-center gap-2 rounded-xs border border-ink/80 px-3 text-[14px] font-medium transition-colors hover:border-terracotta hover:text-terracotta xl:px-4"
+        aria-label={global.whatsapp.aria}
+      >
+        <WhatsAppIcon />
+        <span class="hidden xl:inline">{global.whatsapp.label}</span>
+      </a>
+      <a href={global.cta.href} class="btn btn-primary hidden h-11 whitespace-nowrap !px-5 !py-0 !text-[14px] md:inline-flex">{global.cta.label}</a>
+      <button
+        type="button"
+        class="-mr-2 p-2 xl:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-menu-toggle
+        data-label-open={global.menu.open}
+        data-label-close={global.menu.close}
+      >
+        <span class="sr-only" data-menu-label>{global.menu.open}</span>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+          <path d="M3 8h18M3 16h18" data-icon-open />
+          <path d="M5 5l14 14M19 5L5 19" data-icon-close class="hidden" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden border-t border-travertine bg-ivory xl:hidden">
+    <nav class="container-site py-8" aria-label={global.meta.navMobileAria}>
+      <ul class="flex flex-col">
+        {global.nav.map((item) => (
+          <li class="border-b border-travertine"><a href={item.href} class="block py-4 font-display text-[26px] font-heading">{item.label}</a></li>
+        ))}
+      </ul>
+      <div class="label mt-8 flex gap-4">
+        {languages.map((l) => (
+          <a href={l.href} class:list={[l.current && '!text-terracotta']} hreflang={l.code} lang={l.code}>{l.label}</a>
+        ))}
+      </div>
+      <a href={global.cta.href} class="btn btn-primary mt-8 w-full justify-center">{global.cta.label}</a>
+      <p class="mt-6 text-[15px] text-stone"><a href={contact.phoneHref}>{contact.phone}</a></p>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => {
+    const open = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!open));
+    menu?.classList.toggle('hidden', open);
+    btn.querySelector('[data-icon-open]')?.classList.toggle('hidden', !open);
+    btn.querySelector('[data-icon-close]')?.classList.toggle('hidden', open);
+    const label = btn.querySelector('[data-menu-label]');
+    if (label) label.textContent = open ? btn.dataset.labelOpen ?? '' : btn.dataset.labelClose ?? '';
+  });
+</script>

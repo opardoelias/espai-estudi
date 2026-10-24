@@ -1,0 +1,21 @@
+---
+import { getT } from '../../i18n';
+const { home } = getT(Astro.currentLocale);
+const inv = home.investors;
+---
+
+<section class="section bg-ink text-ivory" aria-labelledby="investors-title">
+  <div class="container-site">
+    <p class="label reveal !text-clay">{inv.eyebrow}</p>
+    <h2 id="investors-title" class="reveal mt-5 max-w-[18em]">{inv.titleStart} <em>{inv.titleEmphasis}</em>.</h2>
+    <div class="mt-14 grid gap-10 md:grid-cols-3 md:gap-12">
+      {inv.items.map((item) => (
+        <div class="reveal border-t border-clay/40 pt-5">
+          <h3 class="mb-2">{item.title}</h3>
+          <p class="text-clay">{item.text}</p>
+        </div>
+      ))}
+    </div>
+    <p class="mt-12"><a href={inv.href} class="btn btn-primary">{inv.button}</a></p>
+  </div>
+</section>

@@ -1,0 +1,19 @@
+---
+import { getT } from '../../i18n';
+const { home } = getT(Astro.currentLocale);
+---
+
+<div class="container-site">
+  <dl class="grid grid-cols-1 border-y border-travertine md:grid-cols-3">
+    {home.facts.map((f, i) => (
+      <div class:list={[
+        'flex flex-col-reverse py-6 md:py-7',
+        i > 0 && 'border-t border-travertine md:border-l md:border-t-0 md:pl-8',
+        i < home.facts.length - 1 && 'md:pr-8'
+      ]}>
+        <dt class="label">{f.label}</dt>
+        <dd class="font-display text-[clamp(1.6rem,2.6vw,2.125rem)] font-heading leading-[1.25]">{f.value}</dd>
+      </div>
+    ))}
+  </dl>
+</div>

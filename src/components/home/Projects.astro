@@ -1,0 +1,53 @@
+---
+import { getT } from '../../i18n';
+const { home } = getT(Astro.currentLocale);
+import SectionIntro from '../SectionIntro.astro';
+import BeforeAfter from '../BeforeAfter.astro';
+import Photo from '../Photo.astro';
+import { media } from '../../data/media';
+
+const p = home.projects;
+const [featured, ...others] = p.items;
+const otherImages = [media.projects.second, media.projects.third];
+---
+
+<section class="section" aria-labelledby="projects-title">
+  <div class="container-site">
+    <SectionIntro eyebrow={p.eyebrow} title={p.title} id="projects-title">
+      <p class="mt-6 max-w-[36em] text-stone">{p.text}</p>
+    </SectionIntro>
+
+    <article class="reveal mt-14 grid items-center gap-10 md:grid-cols-[1.3fr_1fr] md:gap-16">
+      <BeforeAfter
+        after={media.projects.featuredAfter}
+        afterAlt={featured.imageAlt}
+        labels={{ before: p.before, after: p.after, slider: p.sliderLabel, beforePending: p.beforePending }}
+        class="aspect-[4/3]"
+      />
+      <div>
+        <h3 class="!text-[clamp(1.75rem,3vw,2.5rem)] !font-heading">{featured.title}</h3>
+        <dl class="mb-8 mt-7">
+          {featured.spec!.map(([k, v]) => (
+            <div class="flex justify-between gap-6 border-b border-travertine py-3 text-[15px]">
+              <dt class="text-stone">{k}</dt>
+              <dd class="text-right">{v}</dd>
+            </div>
+          ))}
+        </dl>
+        <a href={featured.href} class="btn-link">{p.viewProject}</a>
+      </div>
+    </article>
+
+    <div class="mt-16 grid gap-10 md:grid-cols-2 md:gap-8">
+      {others.map((item, i) => (
+        <a href={item.href} class="reveal group block">
+          <Photo image={otherImages[i]} alt={item.imageAlt} tones={['#E9DCC8', '#A9785A']} class="aspect-[3/2]" />
+          <h3 class="mt-5 transition-colors group-hover:text-terracotta">{item.title}</h3>
+          <p class="label mt-2">{item.meta!.join(' · ')}</p>
+        </a>
+      ))}
+    </div>
+
+    <p class="mt-14"><a href={p.href} class="btn btn-primary">{p.button}</a></p>
+  </div>
+</section>

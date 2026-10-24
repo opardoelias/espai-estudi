@@ -1,0 +1,13 @@
+---
+import { getT } from '../i18n';
+const { global, contact } = getT(Astro.currentLocale);
+import WhatsAppIcon from './WhatsAppIcon.astro';
+---
+
+<nav class="fixed inset-x-0 bottom-0 z-40 grid h-16 grid-cols-2 border-t border-travertine bg-ivory md:hidden" aria-label={global.meta.quickContactAria}>
+  <a href={global.cta.href} class="flex items-center justify-center bg-terracotta text-[15px] font-medium text-white">{global.mobileBar.consult}</a>
+  <a href={contact.whatsappHref} class="flex items-center justify-center gap-2 text-[15px] font-medium" target="_blank" rel="noopener">
+    <WhatsAppIcon />
+    {global.mobileBar.whatsapp}
+  </a>
+</nav>

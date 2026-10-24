@@ -1,0 +1,19 @@
+---
+// Renders nothing until real reviews are added to home.testimonials.
+import { getT } from '../../i18n';
+const { home } = getT(Astro.currentLocale);
+const items = home.testimonials;
+---
+
+{items.length > 0 && (
+  <section class="section bg-limestone">
+    <div class="container-site grid gap-12 md:grid-cols-2">
+      {items.map((t) => (
+        <figure class="reveal">
+          <blockquote class="font-display text-[clamp(1.4rem,2.4vw,1.9rem)] font-heading leading-[1.35]">“{t.quote}”</blockquote>
+          <figcaption class="label mt-6">{t.name} · {t.role}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+)}

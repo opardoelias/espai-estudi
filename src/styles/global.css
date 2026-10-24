@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+/* Design tokens: docs/BRAND.md v0.2 */
+@theme {
+  --color-ivory: #F8F5F0;
+  --color-limestone: #EAE3D8;
+  --color-travertine: #D6C8B4;
+  --color-ink: #2B231D;
+  --color-stone: #6B6158;
+  --color-clay: #C9B79C;
+  --color-terracotta: #8E4A2C;
+  --color-terracotta-dark: #6E3820;
+  --color-bronze: #8A6A3F;
+
+  /* Brand typeface is Gopher (Adam Ladd, commercial licence). Outfit is the free
+     stand-in; if a licensed Gopher webfont is loaded it takes over automatically. */
+  --font-display: "Gopher Display", "Gopher", "Outfit", system-ui, sans-serif;
+  --font-sans: "Gopher", "Outfit", system-ui, sans-serif;
+
+  --radius-xs: 2px;
+}
+
+:root { --heading-weight: 300; }
+
+@utility font-heading {
+  font-weight: var(--heading-weight);
+  font-variant-numeric: lining-nums;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-ivory text-ink font-sans antialiased;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  h1, h2, h3 {
+    @apply font-display;
+    font-weight: var(--heading-weight);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    font-variant-numeric: lining-nums;
+  }
+  h1 { font-size: clamp(2.5rem, 5.4vw, 4.25rem); line-height: 1.1; }
+  h2 { font-size: clamp(1.875rem, 3.6vw, 2.75rem); }
+  h3 { font-size: clamp(1.25rem, 1.8vw, 1.5rem); font-weight: 400; letter-spacing: -0.01em; }
+  /* Geometric sans has no true italic: emphasis is a colour shift instead */
+  h1 em, h2 em { font-style: normal; color: var(--color-bronze); }
+  .bg-ink h2 em { color: var(--color-clay); }
+  :focus-visible { outline: 2px solid var(--color-terracotta); outline-offset: 3px; }
+}
+
+@layer components {
+  .container-site { @apply mx-auto w-full max-w-[1200px] px-4 md:px-8; }
+  .section { @apply py-[72px] md:py-[120px]; }
+  .label {
+    @apply font-sans text-[12px] font-medium uppercase text-stone;
+    letter-spacing: 0.16em;
+    line-height: 1.4;
+  }
+  .btn {
+    @apply inline-flex items-center gap-2.5 rounded-xs border border-transparent px-7 py-4 text-[15px] font-medium transition-colors duration-300;
+    letter-spacing: 0.02em;
+  }
+  .btn-primary { @apply bg-terracotta text-white hover:bg-terracotta-dark; }
+  .btn-link {
+    @apply inline-flex items-center gap-2 border-b border-ink pb-1 text-[15px] font-medium text-ink transition-colors hover:border-terracotta hover:text-terracotta;
+  }
+  .link-accent { @apply text-[15px] font-medium text-terracotta hover:text-terracotta-dark; }
+}
+
+/* Slow fade-up on scroll (see BaseLayout script) */
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+  .js .reveal.is-visible { opacity: 1; transform: none; }
+}

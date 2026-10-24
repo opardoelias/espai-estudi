@@ -1,0 +1,22 @@
+---
+import { getT } from '../../i18n';
+const { home } = getT(Astro.currentLocale);
+import SectionIntro from '../SectionIntro.astro';
+const a = home.audiences;
+---
+
+<section class="section bg-limestone" aria-labelledby="audiences-title">
+  <div class="container-site">
+    <SectionIntro eyebrow={a.eyebrow} title={a.title} id="audiences-title" />
+    <div class="mt-14 grid gap-12 md:grid-cols-3">
+      {a.items.map((item, i) => (
+        <article class="reveal border-t border-ink pt-6">
+          <p class="label !text-bronze">{String(i + 1).padStart(2, '0')}</p>
+          <h3 class="my-3">{item.title}</h3>
+          <p class="text-stone">{item.text}</p>
+          <p class="mt-5"><a href={item.href} class="link-accent">{item.link} →</a></p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

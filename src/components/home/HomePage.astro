@@ -1,0 +1,30 @@
+---
+// Homepage, shared by the three language routes (/, /es/, /en/).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from './Hero.astro';
+import Facts from './Facts.astro';
+import Positioning from './Positioning.astro';
+import Services from './Services.astro';
+import Projects from './Projects.astro';
+import Audiences from './Audiences.astro';
+import Investors from './Investors.astro';
+import Process from './Process.astro';
+import Testimonials from './Testimonials.astro';
+import CtaBand from '../CtaBand.astro';
+import { getT, homeHrefs } from '../../i18n';
+
+const { home } = getT(Astro.currentLocale);
+---
+
+<BaseLayout title={home.seo.title} description={home.seo.description} alternates={homeHrefs}>
+  <Hero />
+  <Facts />
+  <Positioning />
+  <Services />
+  <Projects />
+  <Audiences />
+  <Investors />
+  <Process />
+  <Testimonials />
+  <CtaBand />
+</BaseLayout>
